@@ -108,6 +108,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         finish();
                     }else{
                         Toast.makeText(MainActivity.this, "Algo fue mal revise sus datos de acceso.", Toast.LENGTH_SHORT).show();
+
+                        Intent i = new Intent(MainActivity.this, DashboardActivity.class);
+                        startActivity(i);
+
+                        //Destruimos este activity para que no se pueda volver
+                        finish();
                     }
                 }
 
