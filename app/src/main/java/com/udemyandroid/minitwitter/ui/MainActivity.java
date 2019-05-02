@@ -74,8 +74,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void goToLogin(){
-        String email = editTextEmail.getText().toString();
-        String password = editTextPassword.getText().toString();
+        String email = editTextEmail.getText().toString().trim();
+        String password = editTextPassword.getText().toString().trim();
 
         if (email.isEmpty()){
             editTextEmail.setError("El email es requerido");
@@ -90,8 +90,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 @Override
                 public void onResponse(Call<ResponseAuth> call, Response<ResponseAuth> response) {
                     if (response.isSuccessful()){
-                        Toast.makeText(MainActivity.this, "Sesión iniciada correctamente", Toast.LENGTH_SHORT).show();
-
                         SharedPreferencesManager.setSomeStringValue(Constantes.PREF_TOKEN, response.body().getToken());
                         SharedPreferencesManager.setSomeStringValue(Constantes.PREF_USERNAME, response.body().getUsername());
                         SharedPreferencesManager.setSomeStringValue(Constantes.PREF_EMAIL, response.body().getEmail());
@@ -108,12 +106,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         finish();
                     }else{
                         Toast.makeText(MainActivity.this, "Algo fue mal revise sus datos de acceso.", Toast.LENGTH_SHORT).show();
-
-                        Intent i = new Intent(MainActivity.this, DashboardActivity.class);
-                        startActivity(i);
-
-                        //Destruimos este activity para que no se pueda volver
-                        finish();
                     }
                 }
 
