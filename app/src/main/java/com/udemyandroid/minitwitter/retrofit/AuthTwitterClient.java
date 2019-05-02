@@ -1,7 +1,6 @@
-package com.udemyandroid.minitwitter.retrofit.response;
+package com.udemyandroid.minitwitter.retrofit;
 
 import com.udemyandroid.minitwitter.common.Constantes;
-import com.udemyandroid.minitwitter.retrofit.AuthInterceptor;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -10,10 +9,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class AuthTwitterClient {
 
     private static AuthTwitterClient instance = null;
-    private static AuthTwitterService authTwitterService;
+    private AuthTwitterService miniTwitterService;
     private Retrofit retrofit;
 
-    public AuthTwitterClient(){
+    public AuthTwitterClient() {
         // Incluir en la cabecera de la petición el TOKEN que autoriza al usuario
         OkHttpClient.Builder okHttpClientBuilder = new OkHttpClient.Builder();
         okHttpClientBuilder.addInterceptor(new AuthInterceptor());
@@ -25,19 +24,18 @@ public class AuthTwitterClient {
                 .client(cliente)
                 .build();
 
-        authTwitterService = retrofit.create(AuthTwitterService.class);
+        miniTwitterService = retrofit.create(AuthTwitterService.class);
     }
 
     // Patrón Singleton
-
-    public static AuthTwitterClient getInstance(){
-        if (instance == null){
+    public static AuthTwitterClient getInstance() {
+        if(instance == null) {
             instance = new AuthTwitterClient();
         }
         return instance;
     }
 
-    public static AuthTwitterService getAuthTwitterService(){
-        return authTwitterService;
+    public AuthTwitterService getAuthTwitterService() {
+        return miniTwitterService;
     }
 }

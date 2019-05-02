@@ -52,7 +52,8 @@ public class TweetListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        tweetViewModel = ViewModelProviders.of(getActivity()).get(TweetViewModel.class);
+        tweetViewModel = ViewModelProviders.of(getActivity())
+                .get(TweetViewModel.class);
 
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
@@ -74,7 +75,10 @@ public class TweetListFragment extends Fragment {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
 
-            adapter = new MyTweetRecyclerViewAdapter(getActivity(), tweetList);
+            adapter = new MyTweetRecyclerViewAdapter(
+                    getActivity(),
+                    tweetList
+            );
             recyclerView.setAdapter(adapter);
 
             loadTweetData();
@@ -83,8 +87,7 @@ public class TweetListFragment extends Fragment {
     }
 
 
-
-    private void loadTweetData(){
+    private void loadTweetData() {
         tweetViewModel.getTweets().observe(getActivity(), new Observer<List<Tweet>>() {
             @Override
             public void onChanged(@Nullable List<Tweet> tweets) {
@@ -92,7 +95,6 @@ public class TweetListFragment extends Fragment {
                 adapter.setData(tweetList);
             }
         });
-
 
     }
 

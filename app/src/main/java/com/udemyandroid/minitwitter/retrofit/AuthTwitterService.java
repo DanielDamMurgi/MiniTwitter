@@ -1,6 +1,7 @@
-package com.udemyandroid.minitwitter.retrofit.response;
+package com.udemyandroid.minitwitter.retrofit;
 
 import com.udemyandroid.minitwitter.retrofit.request.RequestCreateTweet;
+import com.udemyandroid.minitwitter.retrofit.response.Tweet;
 
 import java.util.List;
 

@@ -5,8 +5,8 @@ import android.widget.Toast;
 
 import com.udemyandroid.minitwitter.common.MyApp;
 import com.udemyandroid.minitwitter.retrofit.request.RequestCreateTweet;
-import com.udemyandroid.minitwitter.retrofit.response.AuthTwitterClient;
-import com.udemyandroid.minitwitter.retrofit.response.AuthTwitterService;
+import com.udemyandroid.minitwitter.retrofit.AuthTwitterClient;
+import com.udemyandroid.minitwitter.retrofit.AuthTwitterService;
 import com.udemyandroid.minitwitter.retrofit.response.Tweet;
 
 import java.util.ArrayList;

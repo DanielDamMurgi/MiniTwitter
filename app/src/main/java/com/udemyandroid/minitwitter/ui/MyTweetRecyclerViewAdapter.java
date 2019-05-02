@@ -20,14 +20,13 @@ import java.util.List;
 
 public class MyTweetRecyclerViewAdapter extends RecyclerView.Adapter<MyTweetRecyclerViewAdapter.ViewHolder> {
 
-    private List<Tweet> mValues;
     private Context ctx;
+    private List<Tweet> mValues;
     String username;
 
-
-    public MyTweetRecyclerViewAdapter(Context context, List<Tweet> items) {
-        ctx = context;
+    public MyTweetRecyclerViewAdapter(Context contexto, List<Tweet> items) {
         mValues = items;
+        ctx = contexto;
         username = SharedPreferencesManager.getSomeStringValue(Constantes.PREF_USERNAME);
     }
 
@@ -40,18 +39,17 @@ public class MyTweetRecyclerViewAdapter extends RecyclerView.Adapter<MyTweetRecy
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        if (mValues != null) {
+        if(mValues != null) {
             holder.mItem = mValues.get(position);
 
             holder.tvUsername.setText(holder.mItem.getUser().getUsername());
             holder.tvMessage.setText(holder.mItem.getMensaje());
-            holder.tvLikeCount.setText(String.valueOf(holder.mItem.getLikes().size()));
+            holder.tvLikesCount.setText(String.valueOf(holder.mItem.getLikes().size()));
 
             String photo = holder.mItem.getUser().getPhotoUrl();
             if (!photo.equals("")) {
                 Glide.with(ctx)
                         .load("https://www.minitwitter.com/apiv1/uploads/photos/" + photo)
-                        .error(R.drawable.ic_like)
                         .into(holder.ivAvatar);
             }
 
@@ -59,29 +57,26 @@ public class MyTweetRecyclerViewAdapter extends RecyclerView.Adapter<MyTweetRecy
                 if (like.getUsername().equals(username)) {
                     Glide.with(ctx)
                             .load(R.drawable.ic_like_pink)
-                            .error(R.drawable.ic_like)
                             .into(holder.ivLike);
-                    holder.tvLikeCount.setTextColor(ctx.getResources().getColor(R.color.pink));
-                    holder.tvLikeCount.setTypeface(null, Typeface.BOLD);
+                    holder.tvLikesCount.setTextColor(ctx.getResources().getColor(R.color.pink));
+                    holder.tvLikesCount.setTypeface(null, Typeface.BOLD);
                     break;
                 }
             }
         }
+
     }
 
-    public void setData(List<Tweet> tweetList){
+    public void setData(List<Tweet> tweetList) {
         this.mValues = tweetList;
         notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        if (mValues != null){
+        if(mValues != null)
             return mValues.size();
-        }else{
-            return 0;
-        }
-
+        else return 0;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -90,7 +85,7 @@ public class MyTweetRecyclerViewAdapter extends RecyclerView.Adapter<MyTweetRecy
         public final ImageView ivLike;
         public final TextView tvUsername;
         public final TextView tvMessage;
-        public final TextView tvLikeCount;
+        public final TextView tvLikesCount;
         public Tweet mItem;
 
         public ViewHolder(View view) {
@@ -100,7 +95,7 @@ public class MyTweetRecyclerViewAdapter extends RecyclerView.Adapter<MyTweetRecy
             ivLike = view.findViewById(R.id.imageViewLike);
             tvUsername = view.findViewById(R.id.textViewUsername);
             tvMessage = view.findViewById(R.id.textViewMessage);
-            tvLikeCount = view.findViewById(R.id.textViewLikeCounts);
+            tvLikesCount = view.findViewById(R.id.textViewLikeCounts);
         }
 
         @Override
