@@ -1,7 +1,10 @@
 package com.udemyandroid.minitwitter.ui;
 
+import android.arch.lifecycle.ViewModelProvider;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.graphics.Typeface;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.udemyandroid.minitwitter.R;
 import com.udemyandroid.minitwitter.common.Constantes;
 import com.udemyandroid.minitwitter.common.SharedPreferencesManager;
+import com.udemyandroid.minitwitter.data.TweetViewModel;
 import com.udemyandroid.minitwitter.retrofit.response.Like;
 import com.udemyandroid.minitwitter.retrofit.response.Tweet;
 
@@ -23,11 +27,13 @@ public class MyTweetRecyclerViewAdapter extends RecyclerView.Adapter<MyTweetRecy
     private Context ctx;
     private List<Tweet> mValues;
     String username;
+    TweetViewModel tweetViewModel;
 
     public MyTweetRecyclerViewAdapter(Context contexto, List<Tweet> items) {
         mValues = items;
         ctx = contexto;
         username = SharedPreferencesManager.getSomeStringValue(Constantes.PREF_USERNAME);
+        tweetViewModel = ViewModelProviders.of((FragmentActivity) ctx).get(TweetViewModel.class);
     }
 
     @Override
@@ -45,6 +51,13 @@ public class MyTweetRecyclerViewAdapter extends RecyclerView.Adapter<MyTweetRecy
             holder.tvUsername.setText(holder.mItem.getUser().getUsername());
             holder.tvMessage.setText(holder.mItem.getMensaje());
             holder.tvLikesCount.setText(String.valueOf(holder.mItem.getLikes().size()));
+
+            holder.ivLike.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    tweetViewModel.likeTweet(holder.mItem.getId());
+                }
+            });
 
             String photo = holder.mItem.getUser().getPhotoUrl();
             if (!photo.equals("")) {
