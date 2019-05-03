@@ -1,4 +1,4 @@
-package com.udemyandroid.minitwitter.ui;
+package com.udemyandroid.minitwitter.ui.tweets;
 
 import android.app.AlertDialog;
 import android.app.Dialog;

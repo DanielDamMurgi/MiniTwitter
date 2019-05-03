@@ -1,4 +1,4 @@
-package com.udemyandroid.minitwitter.ui;
+package com.udemyandroid.minitwitter.ui.tweets;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,6 +24,7 @@ public class BottomModalTweetFragment extends BottomSheetDialogFragment {
         BottomModalTweetFragment fragment = new BottomModalTweetFragment();
         Bundle args = new Bundle();
         args.putInt(Constantes.ARG_TWEET_ID, idTweet);
+        fragment.setArguments(args);
         return fragment;
     }
 
@@ -64,7 +64,7 @@ public class BottomModalTweetFragment extends BottomSheetDialogFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        tweetViewModel = ViewModelProviders.of(this).get(TweetViewModel.class);
+        tweetViewModel = ViewModelProviders.of(getActivity()).get(TweetViewModel.class);
     }
 
 }
